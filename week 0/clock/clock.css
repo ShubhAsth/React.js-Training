@@ -1,0 +1,32 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: lightblue;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.clock-container {
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 2rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .greeting {
+    margin-bottom: 1rem;
+  }
+  
+  .date {
+    font-size: 1rem;
+  }
+  
+  #hours, #minutes, #seconds, #ampm {
+    margin: 0 0.5rem;
+  }
+  
