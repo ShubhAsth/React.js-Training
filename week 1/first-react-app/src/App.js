@@ -4,7 +4,7 @@ import { FORM } from './components/form.js'
 function App() {
   return (
     <div className="App">
-      <FORM />
+      <FORM/>
     </div>
   );
 }
