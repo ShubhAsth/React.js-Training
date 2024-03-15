@@ -1,5 +1,6 @@
 import logo from "./logo.svg";
 import "./App.css";
+import { Table } from "./component/Table";
 import { useState } from "react";
 
 function App() {
@@ -42,14 +43,14 @@ function App() {
   };
 
   const handleDelete = (id) => {
-    setData(prevData => {
-      const filteredData = prevData.filter(item => item.id !== id);
-      
+    setData((prevData) => {
+      const filteredData = prevData.filter((item) => item.id !== id);
+
       const updatedData = filteredData.map((item, index) => ({
         ...item,
-        id: index + 1
+        id: index + 1,
       }));
-      
+
       return updatedData;
     });
   };
@@ -92,28 +93,7 @@ function App() {
 
           <button type="submit">Save Data</button>
         </form>
-        <table>
-          <thead>
-            <tr>
-              <th>Id</th>
-              <th>Name</th>
-              <th>Price</th>
-              <th>Description</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((item) => (
-              <tr key={item.id}>
-                <td>{item.id}</td>
-                <td>{item.productName}</td>
-                <td>{item.price}</td>
-                <td>{item.desc}</td>
-                <td><button className="delete-button" onClick={() => handleDelete(item.id)}>x</button></td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <Table data={data} handleDelete={handleDelete}></Table>
       </div>
     </div>
   );
