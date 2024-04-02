@@ -1,0 +1,11 @@
+.product-page {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 50px;
+  }
+  
+  .product-card-container {
+    margin: 20px;
+  }
+  
