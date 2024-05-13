@@ -1,4 +1,5 @@
 import React from "react";
+import ImageNotAvailable from "../../recources/images/ImageNotAvailable.webp"
 
 function MiniRecipeCard({recipe}) {
     if (!recipe) {
@@ -10,18 +11,22 @@ function MiniRecipeCard({recipe}) {
         return doc.body.textContent || "";
     };
 
-    const instructionText = stripHtmlTags(recipe.instructions).slice(0, 60);
-    const hasMoreThan60 = recipe.instructions.length > 60;
+    const summaryText = stripHtmlTags(recipe.summary).slice(0, 60);
+    const hasMoreThan60 = recipe.summary.length > 60;
 
     return (
-        <div className="max-w-xs rounded overflow-hidden shadow-lg m-[20px]">
+        <div className="max-w-xs rounded overflow-hidden shadow-lg m-5">
             <div>
-                <img className="w-full " src={recipe.image} alt={recipe.title}/>
+                <img className="w-full " src={recipe.image} alt={recipe.title}
+                     onError={(e) => {
+                         e.target.src = ImageNotAvailable;
+                     }}
+                />
             </div>
             <div className="px-6 py-4">
                 <div className="font-bold text-xl mb-2">{recipe.title}</div>
                 <p>
-                    {instructionText}
+                    {summaryText}
                     {hasMoreThan60 && "..."}
                 </p>
                 <p className="text-gray-700 text-base mb-[8px]">
