@@ -33,7 +33,7 @@ function DetailedRecipeCard() {
         return doc.body.textContent || '';
     };
 
-    const instructionText = stripHtmlTags(recipe.instructions);
+    const summaryText = stripHtmlTags(recipe.summary);
 
     return (
         <div className="min-h-screen bg-gray-100 flex justify-center items-center">
@@ -43,6 +43,8 @@ function DetailedRecipeCard() {
                     <div className="px-6 py-4">
                         <div className="font-bold text-xl mb-2">{recipe.title}</div>
                         <div className="mb-4">
+                            <p className="font-semibold">Summary:</p>
+                            <p>{summaryText}</p>
                             <p>
                                 <span className="font-semibold">Servings:</span> {recipe.servings}
                             </p>
@@ -61,8 +63,17 @@ function DetailedRecipeCard() {
                                     <li key={index} className="list-disc ml-4">{ingredient.original}</li>
                                 ))}
                             </ul>
-                            <p className="font-semibold">Instructions:</p>
-                            <p>{instructionText}</p>
+                            <p className="font-semibold">Instructions: </p>
+                            <ul>
+                                {recipe?.analyzedInstructions?.length > 0 ? (
+                                    recipe.analyzedInstructions[0].steps.map((step, index) => (
+                                        <li key={index} className="list-disc ml-4">{step.step}</li>
+                                    ))
+                                ) : (
+                                    <li>No instructions available.</li>
+                                )}
+                            </ul>
+
                             <p>
                                 <span
                                     className="font-semibold">Price Per Serving:</span> ${recipe.pricePerServing.toFixed(2)}

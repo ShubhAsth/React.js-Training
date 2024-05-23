@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Navbar from "../navbar/NavBar";
 import RecipeList from "../recipeCard/recipeList";
 import Filters from "../filters/filters";
@@ -11,15 +11,15 @@ function HomePage() {
                     <Navbar/>
                 </div>
             </div>
-            <div className="flex">
-                <div>
-                    <div className="container mx-auto px-4 py-8">
-                        <Filters />
+            <div className="flex w-[100%]">
+                <div className="w-[15%]">
+                    <div className="container m-[20px]">
+                        <Filters/>
                     </div>
                 </div>
-                <div className="w-[100%]">
-                    <div className="container px-4 py-8">
-                        <RecipeList />
+                <div className="w-[85%]">
+                    <div className="container m-[20px]">
+                        <RecipeList/>
                     </div>
                 </div>
             </div>

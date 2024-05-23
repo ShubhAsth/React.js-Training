@@ -1,3 +1,15 @@
+export const apiKey = '3367b85285bc4ef2b1a13d8b53ce0be4'
+export const defaultRandomQuery = 'https://api.spoonacular.com/recipes/random?apiKey=' + apiKey
+export const defaultSearchQuery = 'https://api.spoonacular.com/recipes/complexSearch?apiKey=' + apiKey +
+    '&addRecipeInformation=true&addRecipeInstructions=true&addRecipeNutrition=true'
+
+export const maxDataRecipePage = 12
+
+export const AvailableFilterTypes = {
+    DIET_FILTER: 'Diet Filter',
+    CUISINE_FILTER: 'Cuisine Filter'
+}
+
 export const cuisines = [
     'African', 'Asian', 'American', 'British', 'Cajun', 'Caribbean',
     'Chinese', 'Eastern European', 'European', 'French', 'German', 'Greek',
@@ -6,7 +18,9 @@ export const cuisines = [
     'Nordic', 'Southern', 'Spanish', 'Thai', 'Vietnamese'
 ];
 
-export const apiKey = '3367b85285bc4ef2b1a13d8b53ce0be4'
+export const diets = ["Gluten Free", "Ketogenic", "Vegetarian", "Lacto-Vegetarian",
+    "Ovo-Vegetarian", "Vegan", "Pescetarian", "Paleo", "Primal", "Low FODMAP", "Whole30"
+];
 
 
 export const dummyData = {

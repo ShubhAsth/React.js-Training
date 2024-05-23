@@ -1,114 +1,39 @@
 import React, {useEffect, useState} from 'react';
 import MiniRecipeCard from './miniRecipeCard';
 import {Link} from "react-router-dom";
-import {apiKey, dummyData} from "../../appConstants/constants";
 import Paginate from "../pagination/paginate";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {createQuery, fetchRecipes} from "../../utils/Utils";
+import {defaultRandomQuery, defaultSearchQuery, maxDataRecipePage} from "../../appConstants/constants";
 
 
 function RecipeList() {
-    const [recipes, setRecipes] = useState([]);
-    const [currentPage, setCurrentPage] = useState(0);
-    const [totalRecipes, setTotalRecipes] = useState(0);
-    const [updateQuery, setUpdateQuery] = useState("")
-    const [searchInput, setSearchInput] = useState("")
-    const [searchInputHasError, setSearchInputHasError] = useState(false)
-    const max = 12
+    const [currentPage, setCurrentPage] = useState(0)
+    const dispatch = useDispatch();
+    const searchInput = useSelector(state => state.searchInput)
+    const recipes = useSelector((state) => state.filteredRecipes);
+    const totalPage = useSelector((state) => state.totalPage);
+    const cuisineFilter = useSelector((state) => state.selectedCuisines);
+    const dietFiler = useSelector((state) => state.selectedDiets);
 
-    const defaultRandomQuery = 'https://api.spoonacular.com/recipes/random?number=12&apiKey=' + apiKey
-    const defaultSearchQuery = 'https://api.spoonacular.com/recipes/complexSearch?apiKey=' + apiKey +
-        '&addRecipeInformation=true&addRecipeInstructions=true&addRecipeNutrition=true'
-
-    const selectedCuisines = useSelector((state) => state.selectedCuisines);
 
     useEffect(() => {
-        fetchRecipes(defaultRandomQuery);
-    }, []);
+        const query = createQuery(defaultRandomQuery, null, null, null, null)
+        fetchRecipes(query, dispatch);
+    }, [dispatch]);
 
     useEffect(() => {
-        setCurrentPage(0);
-    }, [totalRecipes]);
-
-    const fetchRecipes = async (query) => {
-        // try {
-        //     const response = await fetch(query);
-        //     if (!response.ok) {
-        //         throw new Error('Failed to fetch recipes');
-        //     }
-        //     const data = await response.json();
-        //     if (query.includes('recipes/random')) {
-        //         setRecipes(data.recipes);
-        //         setTotalRecipes(12);
-        //         setCurrentPage(0)
-        //
-        //     } else {
-        //         setRecipes(data.results)
-        //         setTotalRecipes(data.totalResults)
-        //         setCurrentPage(data.offset / max)
-        //     }
-        // } catch (error) {
-        //     console.error('Error fetching recipes:', error);
-        // }
-
-        setRecipes(dummyData.results)
-        setCurrentPage(dummyData.offset / max)
-        setTotalRecipes(dummyData.totalResults)
-    };
-
-    const handleSearchInputChange = (event) => {
-        setSearchInput(event.target.value)
-    }
-
-    const handleSearchSubmit = () => {
-        if (searchInput.length === 0) {
-            setSearchInputHasError(true)
-            return
-        }
-        setSearchInputHasError(false)
-        var query = defaultSearchQuery
-        if (selectedCuisines !== null && selectedCuisines.length !== 0) {
-            query += '&cuisine=' + selectedCuisines.join(",")
-        }
-        query += '&query=' + searchInput
-        query += '&number=' + max
-        query += '&offset=' + currentPage * max
-        setUpdateQuery(query)
-
-        fetchRecipes(query);
-    }
+        setCurrentPage(0)
+    }, [totalPage, dispatch]);
 
     const handlePagination = (pageNumber) => {
-        setCurrentPage(pageNumber);
-        const lastIndex = updateQuery.lastIndexOf('&');
-        let query = ""
-        if (lastIndex !== -1) {
-            query = updateQuery.substring(0, lastIndex) + '&offset=' + pageNumber * max;
-        }
-        setUpdateQuery(query);
-        fetchRecipes(query);
+        setCurrentPage(pageNumber)
+        const query = createQuery(defaultSearchQuery, searchInput, cuisineFilter, dietFiler, pageNumber)
+        fetchRecipes(query, dispatch);
     }
 
     return (
         <div className="justify-center items-center">
-            <div>
-                {searchInputHasError && (
-                    <span className='text-red-500'>Field Can't be Null</span>
-                )}
-                <div className="mb-4">
-                    <input
-                        id='searchRecipe'
-                        type="text"
-                        onChange={handleSearchInputChange}
-                        value={searchInput}
-                        placeholder="Search recipes..."
-                        className="border w-[40%] border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring focus:border-blue-300"
-                    />
-                    <button type="submit" onClick={handleSearchSubmit}
-                            className="ml-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
-                        Search
-                    </button>
-                </div>
-            </div>
             <div className="mb-4">
                 {recipes === undefined || recipes.length === 0 ? (
                     <p className="text-center text-xl font-semibold text-gray-700">No data available</p>
@@ -122,8 +47,8 @@ function RecipeList() {
                     </div>
                 )}
                 <div className="flex justify-center mt-4">
-                    {Math.ceil(totalRecipes / max) > 1 && (
-                        <Paginate totalPage={Math.ceil(totalRecipes / max)} currentPage={currentPage}
+                    {Math.ceil(totalPage / maxDataRecipePage) > 1 && (
+                        <Paginate totalPage={Math.ceil(totalPage / maxDataRecipePage)} currentPage={currentPage}
                                   paginate={handlePagination}/>
                     )}
                 </div>

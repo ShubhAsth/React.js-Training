@@ -17,7 +17,7 @@ function MiniRecipeCard({recipe}) {
     return (
         <div className="max-w-xs rounded overflow-hidden shadow-lg m-5">
             <div>
-                <img className="w-full " src={recipe.image} alt={recipe.title}
+                <img className="w-full " src={recipe.image ? recipe.image : ImageNotAvailable} alt={recipe.title}
                      onError={(e) => {
                          e.target.src = ImageNotAvailable;
                      }}
