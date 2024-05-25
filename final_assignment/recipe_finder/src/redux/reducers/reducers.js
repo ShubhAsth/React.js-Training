@@ -3,7 +3,8 @@ import {
     SET_SEARCH_INPUT,
     SET_SELECTED_CUISINES,
     SET_SELECTED_DIETS,
-    SET_TOTAL_PAGE
+    SET_TOTAL_PAGE,
+    SET_MEAL_TYPE
 } from '../actions/actions';
 
 const initialState = {
@@ -11,7 +12,8 @@ const initialState = {
     selectedDiets: [],
     filteredRecipes: [],
     searchInput: '',
-    totalPage: 0
+    totalPage: 0,
+    mealType: []
 };
 
 const reducers = (state = initialState, action) => {
@@ -40,6 +42,11 @@ const reducers = (state = initialState, action) => {
             return {
                 ...state,
                 totalPage: action.payload,
+            };
+        case SET_MEAL_TYPE:
+            return {
+                ...state,
+                mealType: action.payload,
             };
         default:
             return state;

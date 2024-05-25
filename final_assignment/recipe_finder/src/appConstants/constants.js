@@ -7,8 +7,14 @@ export const maxDataRecipePage = 12
 
 export const AvailableFilterTypes = {
     DIET_FILTER: 'Diet Filter',
-    CUISINE_FILTER: 'Cuisine Filter'
+    CUISINE_FILTER: 'Cuisine Filter',
+    MEAL_TYPE_FILTER: 'Meal Type'
 }
+
+export const mealType = [
+    "main course", "side dish", "dessert", "appetizer", "salad", "bread",
+    "breakfast", "soup", "beverage", "sauce", "marinade", "fingerfood", "snack", "drink"
+]
 
 export const cuisines = [
     'African', 'Asian', 'American', 'British', 'Cajun', 'Caribbean',

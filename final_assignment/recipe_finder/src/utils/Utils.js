@@ -24,26 +24,28 @@ export const fetchRecipes = async (query, dispatch) => {
     // console.log(query)
 }
 
-export const createQuery = (defaultQuery, searchInput, selectedCuisines, selectedDiets, currentPage) => {
-    var query = ''
+export const createQueryAndFetchData = (defaultQuery, state, dispatch, currentPage) => {
+    let query = '';
     if (defaultQuery.includes('recipes/random')) {
         query = defaultQuery
-        query += '&number=' + maxDataRecipePage
-        return query
-    }
-    query = defaultQuery
-    if (searchInput.length !== null && searchInput.length !== 0) {
-        query += '&query=' + searchInput
-    }
-    if (selectedCuisines !== null && selectedCuisines.length !== 0) {
-        query += '&cuisine=' + selectedCuisines.join(",")
-    }
-    if (selectedDiets !== null && selectedDiets.length !== 0) {
-        query += '&diet=' + selectedDiets.join("|")
-    }
-    if (currentPage !== null && currentPage > -1) {
-        query += '&offset=' + currentPage * maxDataRecipePage
+    }else {
+        query = defaultQuery
+        if (state.searchInput.length !== null && state.searchInput.length !== 0) {
+            query += '&query=' + state.searchInput
+        }
+        if (state.selectedCuisines !== null && state.selectedCuisines.length !== 0) {
+            query += '&cuisine=' + state.selectedCuisines.join(",")
+        }
+        if (state.selectedDiets !== null && state.selectedDiets.length !== 0) {
+            query += '&diet=' + state.selectedDiets.join("|")
+        }
+        if (state.mealType !== null && state.mealType.length !== 0) {
+            query += '&type=' + state.mealType.join(",")
+        }
+        if (currentPage !== null && currentPage > -1) {
+            query += '&offset=' + currentPage * maxDataRecipePage
+        }
     }
     query += '&number=' + maxDataRecipePage
-    return query
+    fetchRecipes(query, dispatch)
 }

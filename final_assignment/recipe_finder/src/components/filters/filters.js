@@ -1,20 +1,16 @@
 import React from 'react';
 import CheckBoxFilter from "./checkBoxFilter";
-import {AvailableFilterTypes, cuisines, defaultSearchQuery, diets} from "../../appConstants/constants";
-import {createQuery, fetchRecipes} from "../../utils/Utils";
+import {AvailableFilterTypes, cuisines, defaultSearchQuery, diets, mealType} from "../../appConstants/constants";
+import {createQueryAndFetchData} from "../../utils/Utils";
 import {useDispatch, useSelector} from "react-redux";
 
 function Filters() {
 
     const dispatch = useDispatch();
-    const selectedCuisines = useSelector((state) => state.selectedCuisines);
-    const selectedDiets = useSelector(state => state.selectedDiets)
-    const searchInput = useSelector(state => state.searchInput)
-
+    const state = useSelector((state) => state);
 
     const handleFilterSubmit = () => {
-        const query = createQuery(defaultSearchQuery, searchInput, selectedCuisines, selectedDiets, 0)
-        fetchRecipes(query, dispatch);
+        createQueryAndFetchData(defaultSearchQuery, state, dispatch, 0)
     }
 
     return (
@@ -31,6 +27,10 @@ function Filters() {
                 <hr className="mb-4"/>
                 <div className="mb-4">
                     <CheckBoxFilter acceptedValuesArray={diets} filterType={AvailableFilterTypes.DIET_FILTER}/>
+                </div>
+                <hr className="mb-4"/>
+                <div className="mb-4">
+                    <CheckBoxFilter acceptedValuesArray={mealType} filterType={AvailableFilterTypes.MEAL_TYPE_FILTER}/>
                 </div>
             </div>
         </div>

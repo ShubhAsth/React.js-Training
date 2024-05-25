@@ -3,7 +3,7 @@ export const SET_SELECTED_DIETS = 'SET_SELECTED_DIETS';
 export const SET_RECIPES = 'SET_RECIPES'
 export const SET_SEARCH_INPUT = 'SET_SEARCH_INPUT'
 export const SET_TOTAL_PAGE = 'SET_TOTAL_PAGE'
-
+export const SET_MEAL_TYPE = 'SET_MEAL_TYPE'
 
 export const setSelectedCuisines = (selectedCuisines) => ({
     type: SET_SELECTED_CUISINES,
@@ -29,4 +29,9 @@ export const setSearchInput = (input) => ({
 export const setTotalPage = (totalPage) => ({
     type: SET_TOTAL_PAGE,
     payload: totalPage,
+});
+
+export const setMealType = (mealType) => ({
+    type: SET_MEAL_TYPE,
+    payload: mealType,
 });

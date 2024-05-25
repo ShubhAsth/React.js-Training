@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {AvailableFilterTypes} from '../../appConstants/constants';
 import {useDispatch} from "react-redux";
-import {setSelectedCuisines, setSelectedDiets} from "../../redux/actions/actions";
+import {setMealType, setSelectedCuisines, setSelectedDiets} from "../../redux/actions/actions";
 
 
 function CheckBoxFilter({acceptedValuesArray, filterType}) {
@@ -16,6 +16,9 @@ function CheckBoxFilter({acceptedValuesArray, filterType}) {
                 return
             case AvailableFilterTypes.DIET_FILTER:
                 dispatch(setSelectedDiets(selectedFilterData));
+                return
+            case AvailableFilterTypes.MEAL_TYPE_FILTER:
+                dispatch(setMealType(selectedFilterData));
                 return
             default:
                 return
