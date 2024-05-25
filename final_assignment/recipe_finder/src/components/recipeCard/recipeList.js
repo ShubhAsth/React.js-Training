@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import Paginate from "../pagination/paginate";
 import {useDispatch, useSelector} from "react-redux";
 import {createQueryAndFetchData} from "../../utils/Utils";
-import {defaultRandomQuery, defaultSearchQuery, maxDataRecipePage} from "../../appConstants/constants";
+import {maxRecordPerQuery, randomRecipeSearchQuery, recipeSearchQuery} from "../../appConstants/constants";
 
 
 function RecipeList() {
@@ -13,7 +13,7 @@ function RecipeList() {
     const state = useSelector(state => state)
 
     useEffect(() => {
-        createQueryAndFetchData(defaultRandomQuery, null, dispatch, 0)
+        createQueryAndFetchData(randomRecipeSearchQuery, null, dispatch, 0)
     }, [dispatch]);
 
     useEffect(() => {
@@ -22,7 +22,7 @@ function RecipeList() {
 
     const handlePagination = (pageNumber) => {
         setCurrentPage(pageNumber)
-        createQueryAndFetchData(defaultSearchQuery, state, dispatch, pageNumber)
+        createQueryAndFetchData(recipeSearchQuery, state, dispatch, pageNumber)
     }
 
     return (
@@ -40,8 +40,8 @@ function RecipeList() {
                     </div>
                 )}
                 <div className="flex justify-center mt-4">
-                    {Math.ceil(state.totalPage / maxDataRecipePage) > 1 && (
-                        <Paginate totalPage={Math.ceil(state.totalPage / maxDataRecipePage)} currentPage={currentPage}
+                    {Math.ceil(state.totalPage / maxRecordPerQuery) > 1 && (
+                        <Paginate totalPage={Math.ceil(state.totalPage / maxRecordPerQuery)} currentPage={currentPage}
                                   paginate={handlePagination}/>
                     )}
                 </div>

@@ -1,20 +1,13 @@
-import {maxDataRecipePage} from "../appConstants/constants";
+import {maxRecordPerQuery} from "../appConstants/constants";
 import {setRecipes, setTotalPage} from "../redux/actions/actions";
 
-export const fetchRecipes = async (query, dispatch) => {
+export const fetchRecipes = async (query) => {
     try {
         const response = await fetch(query);
         if (!response.ok) {
             throw new Error('Failed to fetch recipes');
         }
-        const data = await response.json();
-        if (query.includes('recipes/random')) {
-            dispatch(setRecipes(data.recipes))
-            dispatch(setTotalPage(maxDataRecipePage))
-        } else {
-            dispatch(setRecipes(data.results))
-            dispatch(setTotalPage(data.totalResults))
-        }
+        return await response.json();
     } catch (error) {
         console.error('Error fetching recipes:', error);
     }
@@ -28,7 +21,7 @@ export const createQueryAndFetchData = (defaultQuery, state, dispatch, currentPa
     let query = '';
     if (defaultQuery.includes('recipes/random')) {
         query = defaultQuery
-    }else {
+    } else {
         query = defaultQuery
         if (state.searchInput.length !== null && state.searchInput.length !== 0) {
             query += '&query=' + state.searchInput
@@ -43,9 +36,30 @@ export const createQueryAndFetchData = (defaultQuery, state, dispatch, currentPa
             query += '&type=' + state.mealType.join(",")
         }
         if (currentPage !== null && currentPage > -1) {
-            query += '&offset=' + currentPage * maxDataRecipePage
+            query += '&offset=' + currentPage * maxRecordPerQuery
         }
     }
-    query += '&number=' + maxDataRecipePage
-    fetchRecipes(query, dispatch)
+    query += '&number=' + maxRecordPerQuery
+    fetchRecipes(query).then(data => {
+        if (query.includes('recipes/random')) {
+            dispatch(setRecipes(data.recipes))
+            dispatch(setTotalPage(maxRecordPerQuery))
+        } else {
+            dispatch(setRecipes(data.results))
+            dispatch(setTotalPage(data.totalResults))
+        }
+    })
+}
+
+export const fetchData = async (query) => {
+    try {
+        const response = await fetch(query);
+        if (!response.ok) {
+            throw new Error('Failed to fetch recipes');
+        }
+        return await response.json();
+
+    } catch (error) {
+        console.error('Error fetching recipes:', error);
+    }
 }

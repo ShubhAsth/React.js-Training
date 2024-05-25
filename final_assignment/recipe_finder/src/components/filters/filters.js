@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import CheckBoxFilter from "./checkBoxFilter";
-import {AvailableFilterTypes, cuisines, defaultSearchQuery, diets, mealType} from "../../appConstants/constants";
+import {AvailableFilterTypes, cuisines, diets, mealType, recipeSearchQuery} from "../../appConstants/constants";
 import {createQueryAndFetchData} from "../../utils/Utils";
 import {useDispatch, useSelector} from "react-redux";
 
@@ -13,7 +13,7 @@ function Filters() {
     const state = useSelector((state) => state);
 
     const handleFilterSubmit = () => {
-        createQueryAndFetchData(defaultSearchQuery, state, dispatch, 0)
+        createQueryAndFetchData(recipeSearchQuery, state, dispatch, 0)
     }
 
     return (

@@ -1,9 +1,9 @@
 export const apiKey = '3367b85285bc4ef2b1a13d8b53ce0be4'
-export const defaultRandomQuery = 'https://api.spoonacular.com/recipes/random?apiKey=' + apiKey
-export const defaultSearchQuery = 'https://api.spoonacular.com/recipes/complexSearch?apiKey=' + apiKey +
+export const randomRecipeSearchQuery = 'https://api.spoonacular.com/recipes/random?apiKey=' + apiKey
+export const recipeSearchQuery = 'https://api.spoonacular.com/recipes/complexSearch?apiKey=' + apiKey +
     '&addRecipeInformation=true&addRecipeInstructions=true&addRecipeNutrition=true'
-
-export const maxDataRecipePage = 12
+export const autoCompleteQuery = "https://api.spoonacular.com/recipes/autocomplete?apiKey=" + apiKey
+export const maxRecordPerQuery = 12
 
 export const AvailableFilterTypes = {
     DIET_FILTER: 'Diet Filter',

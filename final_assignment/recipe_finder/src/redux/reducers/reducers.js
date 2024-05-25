@@ -1,10 +1,10 @@
 import {
+    SET_MEAL_TYPE,
     SET_RECIPES,
     SET_SEARCH_INPUT,
     SET_SELECTED_CUISINES,
     SET_SELECTED_DIETS,
-    SET_TOTAL_PAGE,
-    SET_MEAL_TYPE
+    SET_TOTAL_PAGE
 } from '../actions/actions';
 
 const initialState = {
