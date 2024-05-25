@@ -2,7 +2,12 @@ import React, {useState} from "react";
 import {useAuth0} from "@auth0/auth0-react";
 import {createQueryAndFetchData, fetchData} from "../../utils/Utils";
 import {useDispatch, useSelector} from "react-redux";
-import {autoCompleteQuery, maxRecordPerQuery, recipeSearchQuery} from "../../appConstants/constants";
+import {
+    autoCompleteQuery,
+    maxRecordPerQuery,
+    randomRecipeSearchQuery,
+    recipeSearchQuery
+} from "../../appConstants/constants";
 import SearchLogo from "../../recources/images/searchLogo.webp"
 import {setSearchInput} from "../../redux/actions/actions";
 
@@ -16,14 +21,15 @@ const Navbar = () => {
 
     const handleSearchSubmit = () => {
         if (recipeInput.length === 0) {
-            alert("cant be null")
+            createQueryAndFetchData(randomRecipeSearchQuery, null, dispatch, 0)
             return
         }
+        setSuggestions([])
         createQueryAndFetchData(recipeSearchQuery, state, dispatch, 0)
     }
 
     const handleSearchInputChange = (event) => {
-        if (event.target.value.length > 3) {
+        if (event.target.value.length > 2) {
             let query = autoCompleteQuery + "&number=" + maxRecordPerQuery + "&query="
             query += event.target.value
             fetchData(query).then(data => setSuggestions(data.map(item => item.title)))
@@ -36,7 +42,7 @@ const Navbar = () => {
 
     const handleSuggestionClick = (event) => {
         setRecipeInput(event.target.innerText)
-        dispatch(setSearchInput(event.target.value))
+        dispatch(setSearchInput(event.target.innerText))
         setSuggestions([])
     }
 

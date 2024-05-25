@@ -4,7 +4,8 @@ import {
     SET_SEARCH_INPUT,
     SET_SELECTED_CUISINES,
     SET_SELECTED_DIETS,
-    SET_TOTAL_PAGE
+    SET_TOTAL_PAGE,
+    SET_IS_LOADING_RECIPES
 } from '../actions/actions';
 
 const initialState = {
@@ -13,7 +14,8 @@ const initialState = {
     filteredRecipes: [],
     searchInput: '',
     totalPage: 0,
-    mealType: []
+    mealType: [],
+    isLoadingRecipes: false
 };
 
 const reducers = (state = initialState, action) => {
@@ -47,6 +49,11 @@ const reducers = (state = initialState, action) => {
             return {
                 ...state,
                 mealType: action.payload,
+            };
+        case SET_IS_LOADING_RECIPES:
+            return {
+                ...state,
+                isLoadingRecipes: action.payload,
             };
         default:
             return state;

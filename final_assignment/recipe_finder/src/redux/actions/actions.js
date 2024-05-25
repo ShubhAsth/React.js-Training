@@ -4,6 +4,7 @@ export const SET_RECIPES = 'SET_RECIPES'
 export const SET_SEARCH_INPUT = 'SET_SEARCH_INPUT'
 export const SET_TOTAL_PAGE = 'SET_TOTAL_PAGE'
 export const SET_MEAL_TYPE = 'SET_MEAL_TYPE'
+export const SET_IS_LOADING_RECIPES = 'SET_IS_LOADING_RECIPES'
 
 export const setSelectedCuisines = (selectedCuisines) => ({
     type: SET_SELECTED_CUISINES,
@@ -33,5 +34,10 @@ export const setTotalPage = (totalPage) => ({
 
 export const setMealType = (mealType) => ({
     type: SET_MEAL_TYPE,
+    payload: mealType,
+});
+
+export const setIsLoadingRecipes = (mealType) => ({
+    type: SET_IS_LOADING_RECIPES,
     payload: mealType,
 });

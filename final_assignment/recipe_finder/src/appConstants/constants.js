@@ -1,4 +1,4 @@
-export const apiKey = '3367b85285bc4ef2b1a13d8b53ce0be4'
+export const apiKey = '286ee814824f457cbac3629c6a4b6ead'
 export const randomRecipeSearchQuery = 'https://api.spoonacular.com/recipes/random?apiKey=' + apiKey
 export const recipeSearchQuery = 'https://api.spoonacular.com/recipes/complexSearch?apiKey=' + apiKey +
     '&addRecipeInformation=true&addRecipeInstructions=true&addRecipeNutrition=true'

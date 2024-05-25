@@ -5,6 +5,8 @@ import Paginate from "../pagination/paginate";
 import {useDispatch, useSelector} from "react-redux";
 import {createQueryAndFetchData} from "../../utils/Utils";
 import {maxRecordPerQuery, randomRecipeSearchQuery, recipeSearchQuery} from "../../appConstants/constants";
+import NoRecipes from "../../recources/images/NoRecipesIcon.png";
+import Loading from "../Loading";
 
 
 function RecipeList() {
@@ -27,9 +29,10 @@ function RecipeList() {
 
     return (
         <div className="justify-center items-center">
+            {state.isLoadingRecipes && <Loading/>}
             <div className="mb-4">
                 {state.filteredRecipes === undefined || state.filteredRecipes.length === 0 ? (
-                    <p className="text-center text-xl font-semibold text-gray-700">No data available</p>
+                    <img src={NoRecipes} alt='No Recipes available' className="w-[20%] h-[20%] mt-[25%] ml-[35%]"/>
                 ) : (
                     <div className="flex flex-wrap justify-center">
                         {state.filteredRecipes.map((recipe) => (
